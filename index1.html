@@ -6,30 +6,34 @@
     <title>跳转提示</title>
     <style>
         body {
-            font-family: Arial, sans-serif;
-            text-align: center;
-            padding: 20px;
-            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+            height: 100vh;
+            width: 100vw;
+            overflow: hidden;
+            background-color: #f4f4f4; /* 备用背景色 */
         }
-        h1 {
-            color: #333;
-            font-size: 24px;
-            margin-bottom: 20px;
-        }
-        p {
-            color: #666;
-            font-size: 16px;
-            margin-bottom: 20px;
+        .background {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: url('https://github.com/CandiceBert/tv/blob/main/20250725140649_29124.jpg?raw=true');
+            background-size: cover; /* 自适应铺满 */
+            background-position: center; /* 居中显示 */
+            background-repeat: no-repeat;
+            z-index: 1;
         }
         a {
-            color: #007bff;
+            display: block;
+            width: 100%;
+            height: 100%;
             text-decoration: none;
-            font-size: 16px;
-        }
-        img {
-            max-width: 100%;
-            height: auto;
-            margin: 20px 0;
+            position: absolute;
+            top: 0;
+            left: 0;
+            z-index: 2; /* 确保点击区域在图片上方 */
         }
     </style>
     <script>
@@ -50,17 +54,15 @@
         // 目标跳转域名
         var targetDomain = getQueryParam('c') || 'seo3.top'; // 默认跳转到seo3.top
 
-        // 如果在微信中，显示引导页面
+        // 如果在微信中，显示背景图片和跳转链接
         if (isWeChat()) {
             document.write(`
-                <h1>请使用浏览器打开</h1>
-                <p>您正在微信中访问此页面，请点击下方链接在浏览器中打开：</p>
-                <img src="https://github.com/CandiceBert/tv/edit/main/20250725140649_29124.jpg" alt="引导图片">
-                <p><a href="http://${targetDomain}">${targetDomain}</a></p>
+                <div class="background"></div>
+                <a href="https://${targetDomain}"></a>
             `);
         } else {
             // 不在微信，直接跳转
-            window.location.href = 'http://' + targetDomain;
+            window.location.href = 'https://' + targetDomain;
         }
     </script>
 </head>
